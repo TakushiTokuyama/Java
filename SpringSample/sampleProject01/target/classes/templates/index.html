@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script src="webjars/jquery/3.4.1/jquery.min.js"></script>
+<link rel="stylesheet"
+	href="webjars/bootstrap/4.5.2/css/bootstrap.min.css" />
+<script src="webjars/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<link th:href="@{/css/index.css}" rel="stylesheet" type="text/css" />
+<title>Member</title>
+</head>
+<body>
+	<div class="continer">
+		<div class="row">
+			<div class="offset-1 col-3 d-inline text-primary">登録or更新</div>
+		</div>
+	</div>
+	<div class="continer">
+		<div class="row">
+			<form class="w-100" method="post" action="/register"
+				th:object="${formModel}">
+				<div class="offset-1 col-3 d-inline">
+					<label>id</label>
+				</div>
+				<div class="col-2 d-inline">
+					<input type="text" name="id" th:value="*{id}">
+				</div>
+				<div class="offset-1 col-3 d-inline">
+					<label>name</label>
+				</div>
+				<div class="col-2 d-inline">
+					<input type="text" name="name" th:value="*{name}">
+				</div>
+				<div class="col-1 d-inline">
+					<input type="submit" value="登録&更新">
+				</div>
+			</form>
+		</div>
+	</div>
+	<div class="continer">
+		<div class="row">
+			<div class="offset-1 col-3 d-inline text-success mt-5">結果表示</div>
+		</div>
+	</div>
+	<div class="continer">
+		<div class="row">
+			<div class=" offset-1 col-11 form-inline">
+			<p class="col-1 d-inline">check</p>
+				<p class="col-1 d-inline">id</p>
+				<p class="col-1 d-inline">name</p>
+				<p class="col-1 d-inline">delete</p>
+			</div>
+		</div>
+	</div>
+	<form method="post" action="/delete">
+		<div class="continer">
+			<div class="row">
+				<div class="offset-1 col-11 form-inline bg-light result"
+					th:each="obj : ${members}">
+					<p class="col-1">
+						<input class="id_check" onClick="checkPoint()" type="checkbox" name="id" th:value="${obj.id}">
+					</p>
+					<p class="col-1" th:text="${obj.id}"></p>
+					<p class="col-1" th:text="${obj.name}"></p>
+					<p class="col-1">
+						<input class="delete_btn" type="submit" value="削除">
+					</p>
+				</div>
+			</div>
+		</div>
+	</form>
+	<script type="text/javascript" th:src="@{/js/index.js}"></script>
+</body>
+</html>
