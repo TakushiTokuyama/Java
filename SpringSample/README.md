@@ -22,7 +22,90 @@ SPA
 削除ボタン非活性、活性　チェックボタン押下時に削除実行  
 
 ##### 感想
-簡単なSQLの処理には向いているが複雑になればなるほど難しい。  
+sampleProject02Application.javaがエントリーポイントとなる。  
+ソリューション構成は基本的にエントリーポイント直下に追加していくのが望ましい。  
+
+resources/static直下にcssファイルとjsファイル追加  
+
+application.propertiesにDB設定を記述  
+```
+?serverTimezone=JST (文字化け対策)
+```
+
+アノテーションが便利  
+DI注入  
+```
+@AutoWired
+
+// 上記と同じ意味
+private final MembersRepository repository;
+
+	SampleController(MembersRepository repository) {
+		this.repository = repository;
+	}
+    
+// DI注入が楽
+```
+
+JPAのアノテーション  
+```
+@Entity // Modelに記述でデータがbindingされる
+@Repository// Repository登録
+```
+
+Lombock  
+```
+@Data
+
+getter setter constructor 等を自動で生成してくれる。
+```
+
+コントローラー  
+```
+@Controller("/")
+@GetMapping("/")
+@PostMapping("/delete")
+// Mapping
+```
+
+リクエストパラメーター  
+```
+@RequestParamでリクエストパラメーターを受け取る。
+
+@PostMapping("/delete")
+	public String delete(@RequestParam("id") int id) {
+		repository.deleteById(id);
+		return "redirect:/";
+	}
+
+@ModelAttribute
+リクエストから送信されたObject"formModel"からMembersクラスにbinding
+自動でやってくれる。
+
+@PostMapping("/register")
+	public String registerAndUpdate(@ModelAttribute("formModel") Members members) {
+		if(members.getId() == null && members.getName() == "") {
+			return "redirect:/";
+		}
+			repository.save(members);
+		return "redirect:/";
+	}
+```
+
+Thymeleaf構文  
+```
+// objectとしてリクエストパラメータを送信できる。
+th:object="${formModel}" // object
+
+<form class="w-100" method="post" action="/register "th:object="${formModel}">
+
+th:each="${obj : ${members}" // foreach
+th:text="${obj.id}" // 表示 
+th:value="${obj.id}" //　value値
+
+```
+
+JPAは簡単なSQLの処理には向いているが複雑になればなるほど難しい。  
 JpaRepositoryを継承することで用意されているメソッドを使える  
 全件検索　更新　削除　などなど。。  
 
