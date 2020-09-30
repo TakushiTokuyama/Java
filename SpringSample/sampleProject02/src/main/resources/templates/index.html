@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<script src="webjars/jquery/3.4.1/jquery.min.js"></script>
+<script src="webjars/jquery/3.5.1/jquery.min.js"></script>
 <link rel="stylesheet"
 	href="webjars/bootstrap/4.5.2/css/bootstrap.min.css" />
 <script src="webjars/bootstrap/4.5.2/js/bootstrap.min.js"></script>
@@ -14,9 +14,13 @@
 		<form method="post" action="/register">
 			<div class="row">
 				<div class="col-sm-4">
-					タイムカード出社:<input type="submit" value="出社" />
+					<div>
+						タイムカード出社:<input type="submit" value="出社" />
+					</div>
 				</div>
-
+				<div class="col-sm-2">
+					<p th:text="${message}"></p>
+				</div>
 			</div>
 		</form>
 	</div>
@@ -24,29 +28,44 @@
 		<form method="post" action="/update">
 			<div class="row">
 				<div class="col-sm-4">
-					タイムカード退社:<input type="submit" value="退社" />
+					<div>
+						タイムカード退社:<input type="submit" value="退社" />
+					</div>
 				</div>
 			</div>
 		</form>
 	</div>
 	<div class="container">
+		<form method="post" action="/cancel">
+			<div class="row">
+				<div class="col-sm-6">
+					<select name="torikeshi">
+						<option value="1">出社取消</option>
+						<option value="2">退社取消</option>
+					</select> タイムカード取消:<input type="submit" value="取消" />
+				</div>
+
+			</div>
+		</form>
+	</div>
+	<div class="container">
 		<div class="row">
-			<div class="col-sm-2">id</div>
-			<div class="col-sm-2">name</div>
-			<div class="col-sm-2">ymd</div>
-			<div class="col-sm-2">syusyatime</div>
-			<div class="col-sm-2">taisyatime</div>
-			<div class="col-sm-2">totaltime</div>
+			<div class="col-sm-2 contents">id</div>
+			<div class="col-sm-2 contents">name</div>
+			<div class="col-sm-2 contents">ymd</div>
+			<div class="col-sm-2 contents">syusyatime</div>
+			<div class="col-sm-2 contents">taisyatime</div>
+			<div class="col-sm-2 contents">totaltime</div>
 		</div>
 	</div>
 	<div class="container">
 		<div class="row" th:each="obj : ${members}">
-			<div class="col-sm-2" th:text="${obj.id}"></div>
-			<div class="col-sm-2" th:text="${obj.name}"></div>
-			<div class="col-sm-2" th:text="${obj.ymd}"></div>
-			<div class="col-sm-2" th:text="${obj.syusyatime}"></div>
-			<div class="col-sm-2" th:text="${obj.taisyatime}"></div>
-			<div class="col-sm-2" th:text="${obj.totaltime}"></div>
+			<div class="col-sm-2 contents" th:text="${obj.id}"></div>
+			<div class="col-sm-2 contents" th:text="${obj.name}"></div>
+			<div class="col-sm-2 contents" th:text="${obj.ymd}"></div>
+			<div class="col-sm-2 contents" th:text="${obj.syusyatime}"></div>
+			<div class="col-sm-2 contents" th:text="${obj.taisyatime}"></div>
+			<div class="col-sm-2 contents" th:text="${obj.totaltime}"></div>
 		</div>
 	</div>
 	<script type="text/javascript" th:src="@{/js/index.js}"></script>
