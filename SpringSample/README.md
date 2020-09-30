@@ -21,7 +21,7 @@ SPA
 結果表示のレイアウトを見やすく　背景を奇数と偶数で分ける  
 削除ボタン非活性、活性　チェックボタン押下時に削除実行  
 
-##### 感想
+#### 概要
 sampleProject02Application.javaがエントリーポイントとなる。  
 ソリューション構成は基本的にエントリーポイント直下に追加していくのが望ましい。  
 
@@ -125,3 +125,59 @@ java 14
 'org.projectlombok:lombok'  
 'org.springframework.boot:spring-boot-starter-test'  
 'org.junit.vintage','junit-vintage-engine'  
+
+
+## sampleProject03
+## Spring +Gradle + MyBatis + Thymeleaf + MySql
+
+### build.gradle
+2.3.4.RELEASE  
+java 11  
+'org.springframework.boot:spring-boot-starter-thymeleaf'  
+'org.springframework.boot:spring-boot-starter-web'  
+'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.1.3'  
+'org.projectlombok:lombok'  
+'org.webjars:jquery:3.5.1'  
+'org.webjars:bootstrap:4.5.2'  
+'mysql:mysql-connector-java'  
+'org.projectlombok:lombok'  
+'org.springframework.boot:spring-boot-starter-test'  
+'org.junit.vintage','junit-vintage-engine'  
+
+#### 機能
+Controller側から受け取ったデータをJavaScriptに送る。
+Chart.js　グラフを作成。
+[Chart.jsサイト](https://www.chartjs.org/)
+
+#### 概要
+Controller側からJavaScriptへのデータの送り方 
+
+##### sampleController.java
+```
+model.addAttribute("employees",employeesMapper.FindAll());
+model.addAttribute("visit", "訪問回数");
+model.addAttribute("construct","契約回数");
+```
+##### index.html
+```
+<script th:inline="javascript">
+	var employees = [[${employees}]];
+	var visit = [[${visit}]];
+	var construct = [[${construct}]];
+</script>
+```
+
+Chart.js 全体的なサイズの変更方法
+##### レスポンシブ指定
+```
+<style>
+@media screen and (min-width: 768px) {
+  .chart_container {
+    width: 640px;
+    margin: auto;
+  }
+}
+</style>
+```
+[レスポンシブの参考サイト](https://obel.hatenablog.jp/entry/20160626/1466937585)
+
