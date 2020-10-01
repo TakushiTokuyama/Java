@@ -148,6 +148,7 @@ java 11
 Controller側から受け取ったデータをJavaScriptに送る。
 Chart.js　グラフを作成。
 [Chart.jsサイト](https://www.chartjs.org/)
+共通のlayout
 
 #### 概要
 Controller側からJavaScriptへのデータの送り方 
@@ -181,3 +182,12 @@ Chart.js 全体的なサイズの変更方法
 ```
 [レスポンシブの参考サイト](https://obel.hatenablog.jp/entry/20160626/1466937585)
 
+##### layout共通化
+```
+// layout.html
+<section th:fragment="header"> // 共通
+
+// index.html
+<div th:replace="com/layout::header"></div> // 固有
+```
+[共通layoutの参考サイト](https://obel.hatenablog.jp/entry/20160626/1466937585)
