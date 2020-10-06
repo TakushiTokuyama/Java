@@ -1,0 +1,13 @@
+body {
+	margin: 0px;
+}
+
+.chart_block {
+	display: flex;
+	flex-direction: row-reverse;
+}
+
+.contents {
+	border: solid 1px #333;
+	height: 30px;
+}

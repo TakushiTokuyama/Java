@@ -20,4 +20,9 @@ public class SampleController {
 		return "index";
 	}
 
+	@GetMapping("/calender")
+	public String Calender(Model model) {
+		return "calender";
+	}
+
 }
