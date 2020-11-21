@@ -31,8 +31,18 @@ for(var i = 0; i < 6 * 16; i++){
 	calender.appendChild(list[i]);
 }
 
+var youbi = { 0:"(日)", 1:"(月)", 2:"(火)", 3:"(水)",4:"(木)",5:"(金)",6:"(土)"};
+
 function getFirstDay(date){
 	return new Date(date.getFullYear(), date.getMonth(), 1);
 }
 
 console.log(getFirstDay(new Date()).getDate());
+console.log(youbi[getFirstDay(new Date()).getDay()]);
+
+function getLastDay(date){
+	return new Date(date.getFullYear(), date.getMonth() + 1, 0);
+}
+
+console.log(getLastDay(new Date()).getDate());
+console.log(youbi[getLastDay(new Date()).getDay()]);
