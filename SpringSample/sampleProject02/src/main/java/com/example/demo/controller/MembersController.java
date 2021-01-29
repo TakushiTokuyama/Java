@@ -41,7 +41,6 @@ public class MembersController {
 		return "redirect:/";
 	}
 
-	// 取り消し
 	@PostMapping("/cancel")
 	public String Cancel(@RequestParam("torikeshi") String torikeshi) {
 		if (torikeshi.equals("1")) {
